@@ -122,7 +122,7 @@ def create_email(name: list, domain: list) -> str:
     value_domains = random.choice(domains)
     value_random_int = random.randint(100, 999)
     value_random_str = ''.join(random.choice(string.ascii_lowercase) for idx in range(0, random.randint(5, 7)))
-    return (f"{value_names}.{value_random_int}@{value_random_str}.{value_domains}")
+    return f"{value_names}.{value_random_int}@{value_random_str}.{value_domains}"
 
 
 names = ["king", "miller", "kean"]
