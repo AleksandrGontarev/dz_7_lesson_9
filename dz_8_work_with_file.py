@@ -1,59 +1,46 @@
-
-###################################################    1
-
 filename_domains = "C:\\Homeworks\\domains.txt"
-
-
-def return_change_list_domains(filename):
-    buffer_line = ""
-    with open(filename, 'r') as work_file:
-        list_domains = work_file.read()
-        for symbol in list_domains:
-            if symbol != ".":
-                buffer_line += symbol
-        return buffer_line.split("\n")
-
-
-###################################################     2
-
 filename_names = "C:\\Homeworks\\names_1.txt"
-
-
-def return_lastname_list(filename):
-    with open(filename_names, 'r') as file:
-        list_name = file.read()
-        sournames = []
-        for line in list_name.split("\n"):
-            if line:
-                sourname = line.split()[1]
-                sournames.append(sourname)
-    return sournames
-
-
-##############################################################    3
-
 filename_authors = "C:\\Homeworks\\authors.txt"
 
 
-def return_list_of_dictionaries(filename):
-    with open(filename_authors, 'r') as file:
-        list_dict = file.read()
-        data = []
-        dlist = []
-        test_dict = {}
-        for line in list_dict.split("\n"):
-            if len(line.split()[0:3]) == 3:
-                data.append(line.split()[0:3])
-        for line in data:
-            test_dict["data"] = " ".join(line)
-            dlist.append(test_dict.copy())
-    return dlist
+def read_file(filename: str) -> str:
+    with open(filename, 'r') as file:
+        data = file.read()
+        return data
 
 
-print(return_change_list_domains(filename_domains))
-print(return_lastname_list(filename_names))
-print(return_list_of_dictionaries(filename_authors))
+def return_change_list_domains(filename: str) -> list:
+    data = read_file(filename).replace(".", "")
+    string_list = data.split("\n")
+    return string_list
 
+
+def return_lastname_list(filename: str) -> list:
+    data = read_file(filename)
+    sournames = []
+    for line in data.split("\n"):
+        if line:
+            sournames.append(line.split()[1])
+    return sournames
+
+
+def return_list_of_dictionaries(filename: str) -> list:
+    data = read_file(filename)
+    list_dates = []
+    data = data.split("\n")
+    for line in data:
+        date = line.split("-")
+        if date[0] and not date[0].isalpha():
+            date_dict = dict(data=date[0])
+            list_dates.append(date_dict.copy())
+    return list_dates
+
+
+domains = return_change_list_domains(filename_domains)
+last_name = return_lastname_list(filename_names)
+dictionaries = return_list_of_dictionaries(filename_authors)
+
+print(domains, "\n", last_name, "\n", dictionaries)
 
 
 
