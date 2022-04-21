@@ -32,10 +32,25 @@ def write_file_path(dictionary: dict, string: str) -> dict:
 
 
 dir_name = "\\Homeworks"
+dir_name_1 = "\\Homeworks2"
 reverse_sort = False
 string = "test"
 
 dict_files_path = creat_dict_file_dir(dir_name)
 sort = sort_dictionary(dict_files_path, reverse_sort)
 write = write_file_path(dict_files_path, string)
+
+
+def creat_file_path(dictionary: dict, dir_name: str):
+    for value in dictionary["dirnames"]:
+        filepath = os.path.join(dir_name, value)
+        os.makedirs(filepath, exist_ok=True)
+    for value in dictionary["filenames"]:
+        filepath = os.path.join(dir_name, value)
+        with open(filepath, 'w') as file:
+            file.write(dir_name)
+
+
+creat = creat_file_path(dict_files_path,dir_name_1)
+
 
