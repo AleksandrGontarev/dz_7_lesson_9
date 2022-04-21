@@ -1,7 +1,4 @@
 import os
-CHEKBOX = False
-NAME_FILE_OR_PATH = "test"
-
 
 
 def creat_dict_file_dir(dirname: str) -> dict:
@@ -13,24 +10,20 @@ def creat_dict_file_dir(dirname: str) -> dict:
         filepath = os.path.join(dirname, filename)
         if os.path.isdir(filepath):
             list_path.append(filename)
-            dict_files_path["dirnames"] = list_path
-        if os.path.isfile(filepath):
+        elif os.path.isfile(filepath):
             list_files.append(filename)
-            dict_files_path["filenames"] = list_files
+    dict_files_path["filenames"] = list_files
+    dict_files_path["dirnames"] = list_path
     return dict_files_path
 
 
-def sort_dictionary(dictionary: dict, checkbox: bool = CHEKBOX) -> dict:
-    if not checkbox:
-        for key, value in dictionary.items():
-            dictionary[key] = sorted(value)
-        else:
-            for key, value in dictionary.items():
-                dictionary[key] = sorted(value, reverse=True)
+def sort_dictionary(dictionary: dict, reverse_sort: bool) -> dict:
+    for key, value in dictionary.items():
+        dictionary[key] = sorted(value, reverse=not reverse_sort)
     return dictionary
 
 
-def write_file_path(dictionary: dict, string: str = NAME_FILE_OR_PATH) -> dict:
+def write_file_path(dictionary: dict, string: str) -> dict:
     if string.count("."):
         dictionary["filenames"].append(string)
     else:
@@ -39,7 +32,10 @@ def write_file_path(dictionary: dict, string: str = NAME_FILE_OR_PATH) -> dict:
 
 
 dir_name = "\\Homeworks"
+reverse_sort = False
+string = "test"
 
 dict_files_path = creat_dict_file_dir(dir_name)
-sort = sort_dictionary(dict_files_path, CHEKBOX)
-write = write_file_path(dict_files_path, NAME_FILE_OR_PATH)
+sort = sort_dictionary(dict_files_path, reverse_sort)
+write = write_file_path(dict_files_path, string)
+
